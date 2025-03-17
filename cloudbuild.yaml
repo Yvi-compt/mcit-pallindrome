@@ -1,0 +1,12 @@
+steps:
+# Build the Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/YOUR_PROJECT_ID/palindrome-checker', '.']
+
+# Push the Docker image to Google Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/YOUR_PROJECT_ID/palindrome-checker']
+
+# Deploy to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'palindrome-checker', '--image', 'gcr.io/YOUR_PROJECT_ID/palindrome-checker', '--platform', 'managed', '--region', 'us-central1', '--allow-unauthenticated']
